@@ -8,13 +8,16 @@
 py -m venv myenv
 ```
 
-パッケージのインストール
+パッケージのインストール  
+pyautoguiは、ないとpydirectinputの座標がおかしくなるらしい  
+参考：[pythonで、ゲームを自動化する「pydirectinput」](https://namake2.hatenablog.com/entry/2023/12/28/055412)
 
 ```shell
 pip install pydirectinput
-pip install pyautogui # ないと座標がおかしくなるらしい 参考：https://namake2.hatenablog.com/entry/2023/12/28/055412
+pip install pyautogui
 pip install numpy
-pip install google-cloud-vision # google Cloud VisionAPI用
+pip install google-cloud-vision
+pip3 install pytk
 ```
 
 ## 開発環境の起動(デバッグ時)
