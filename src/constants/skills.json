@@ -1,0 +1,865 @@
+{
+    "skills": [
+      {
+        "skillNameJp": "攻撃",
+        "skillNameEn": "Attack Boost",
+        "cost": 15,
+        "slot": 2,
+        "isUniqueSkill": false
+      },
+      {
+        "skillNameJp": "挑戦者",
+        "skillNameEn": "Agitator",
+        "cost": 12,
+        "slot": 2,
+        "isUniqueSkill": false
+      },
+      {
+        "skillNameJp": "フルチャージ",
+        "skillNameEn": "Peak Performance",
+        "cost": 12,
+        "slot": 2,
+        "isUniqueSkill": false
+      },
+      {
+        "skillNameJp": "逆恨み",
+        "skillNameEn": "Resentment",
+        "cost": 12,
+        "slot": 2,
+        "isUniqueSkill": false
+      },
+      {
+        "skillNameJp": "死中に活",
+        "skillNameEn": "Resuscitate",
+        "cost": 12,
+        "slot": 2,
+        "isUniqueSkill": false
+      },
+      {
+        "skillNameJp": "見切り",
+        "skillNameEn": "Critical Eye",
+        "cost": 15,
+        "slot": 2,
+        "isUniqueSkill": false
+      },
+      {
+        "skillNameJp": "超会心",
+        "skillNameEn": "Critical Boost",
+        "cost": 15,
+        "slot": 2,
+        "isUniqueSkill": false
+      },
+      {
+        "skillNameJp": "弱点特効",
+        "skillNameEn": "Weakness Exploit",
+        "cost": 15,
+        "slot": 2,
+        "isUniqueSkill": false
+      },
+      {
+        "skillNameJp": "力の解放",
+        "skillNameEn": "Latent Power",
+        "cost": 12,
+        "slot": 2,
+        "isUniqueSkill": false
+      },
+      {
+        "skillNameJp": "渾身",
+        "skillNameEn": "Maximum Might",
+        "cost": 12,
+        "slot": 2,
+        "isUniqueSkill": false
+      },
+      {
+        "skillNameJp": "会心撃【属性】",
+        "skillNameEn": "Critical Element",
+        "cost": 9,
+        "slot": 2,
+        "isUniqueSkill": false
+      },
+      {
+        "skillNameJp": "達人芸",
+        "skillNameEn": "Master's Touch",
+        "cost": 15,
+        "slot": 2,
+        "isUniqueSkill": false
+      },
+      {
+        "skillNameJp": "火属性攻撃強化",
+        "skillNameEn": "Fire Attack",
+        "cost": 3,
+        "slot": 1,
+        "isUniqueSkill": false
+      },
+      {
+        "skillNameJp": "水属性攻撃強化",
+        "skillNameEn": "Water Attack",
+        "cost": 3,
+        "slot": 1,
+        "isUniqueSkill": false
+      },
+      {
+        "skillNameJp": "氷属性攻撃強化",
+        "skillNameEn": "Ice Attack",
+        "cost": 3,
+        "slot": 1,
+        "isUniqueSkill": false
+      },
+      {
+        "skillNameJp": "雷属性攻撃強化",
+        "skillNameEn": "Thunder Attack",
+        "cost": 3,
+        "slot": 1,
+        "isUniqueSkill": false
+      },
+      {
+        "skillNameJp": "龍属性攻撃強化",
+        "skillNameEn": "Dragon Attack",
+        "cost": 3,
+        "slot": 1,
+        "isUniqueSkill": false
+      },
+      {
+        "skillNameJp": "毒属性強化",
+        "skillNameEn": "Poison Attack",
+        "cost": 6,
+        "slot": 2,
+        "isUniqueSkill": false
+      },
+      {
+        "skillNameJp": "麻痺属性強化",
+        "skillNameEn": "Paralysis Attack",
+        "cost": 6,
+        "slot": 2,
+        "isUniqueSkill": false
+      },
+      {
+        "skillNameJp": "睡眠属性強化",
+        "skillNameEn": "Sleep Attack",
+        "cost": 6,
+        "slot": 2,
+        "isUniqueSkill": false
+      },
+      {
+        "skillNameJp": "爆破属性強化",
+        "skillNameEn": "Blast Attack",
+        "cost": 6,
+        "slot": 2,
+        "isUniqueSkill": false
+      },
+      {
+        "skillNameJp": "匠",
+        "skillNameEn": "Handicraft",
+        "cost": 12,
+        "slot": 3,
+        "isUniqueSkill": false
+      },
+      {
+        "skillNameJp": "業物",
+        "skillNameEn": "Razor Sharp",
+        "cost": 15,
+        "slot": 2,
+        "isUniqueSkill": false
+      },
+      {
+        "skillNameJp": "弾丸節約",
+        "skillNameEn": "Spare Shot",
+        "cost": 15,
+        "slot": 2,
+        "isUniqueSkill": false
+      },
+      {
+        "skillNameJp": "剛刃研磨",
+        "skillNameEn": "Protective Polish",
+        "cost": 9,
+        "slot": 2,
+        "isUniqueSkill": false
+      },
+      {
+        "skillNameJp": "心眼",
+        "skillNameEn": "Mind's Eye",
+        "cost": 6,
+        "slot": 2,
+        "isUniqueSkill": false
+      },
+      {
+        "skillNameJp": "弾導強化",
+        "skillNameEn": "Ballistics",
+        "cost": 9,
+        "slot": 2,
+        "isUniqueSkill": false
+      },
+      {
+        "skillNameJp": "集中",
+        "skillNameEn": "Focus",
+        "cost": 6,
+        "slot": 2,
+        "isUniqueSkill": false
+      },
+      {
+        "skillNameJp": "強化持続",
+        "skillNameEn": "Power Prolonger",
+        "cost": 9,
+        "slot": 2,
+        "isUniqueSkill": false
+      },
+      {
+        "skillNameJp": "ランナー",
+        "skillNameEn": "Marathon Runner",
+        "cost": 6,
+        "slot": 2,
+        "isUniqueSkill": false
+      },
+      {
+        "skillNameJp": "体術",
+        "skillNameEn": "Constitution",
+        "cost": 6,
+        "slot": 2,
+        "isUniqueSkill": false
+      },
+      {
+        "skillNameJp": "スタミナ急速回復",
+        "skillNameEn": "Stamina Surge",
+        "cost": 6,
+        "slot": 2,
+        "isUniqueSkill": false
+      },
+      {
+        "skillNameJp": "ガード性能",
+        "skillNameEn": "Guard",
+        "cost": 6,
+        "slot": 2,
+        "isUniqueSkill": false
+      },
+      {
+        "skillNameJp": "ガード強化",
+        "skillNameEn": "Guard Up",
+        "cost": 6,
+        "slot": 2,
+        "isUniqueSkill": false
+      },
+      {
+        "skillNameJp": "攻めの守勢",
+        "skillNameEn": "Offensive Guard",
+        "cost": 9,
+        "slot": 3,
+        "isUniqueSkill": false
+      },
+      {
+        "skillNameJp": "抜刀術【技】",
+        "skillNameEn": "Critical Draw",
+        "cost": 6,
+        "slot": 2,
+        "isUniqueSkill": false
+      },
+      {
+        "skillNameJp": "抜刀術【力】",
+        "skillNameEn": "Punishing Draw",
+        "cost": 9,
+        "slot": 2,
+        "isUniqueSkill": false
+      },
+      {
+        "skillNameJp": "納刀術",
+        "skillNameEn": "Quick Sheathe",
+        "cost": 6,
+        "slot": 2,
+        "isUniqueSkill": false
+      },
+      {
+        "skillNameJp": "ＫＯ術",
+        "skillNameEn": "Slugger",
+        "cost": 6,
+        "slot": 2,
+        "isUniqueSkill": false
+      },
+      {
+        "skillNameJp": "スタミナ奪取",
+        "skillNameEn": "Stamina Thief",
+        "cost": 3,
+        "slot": 1,
+        "isUniqueSkill": false
+      },
+      {
+        "skillNameJp": "滑走強化",
+        "skillNameEn": "Affinity Sliding",
+        "cost": 3,
+        "slot": 1,
+        "isUniqueSkill": false
+      },
+      {
+        "skillNameJp": "笛吹き名人",
+        "skillNameEn": "Horn Maestro",
+        "cost": 3,
+        "slot": 1,
+        "isUniqueSkill": false
+      },
+      {
+        "skillNameJp": "砲術",
+        "skillNameEn": "Artillery",
+        "cost": 12,
+        "slot": 2,
+        "isUniqueSkill": false
+      },
+      {
+        "skillNameJp": "砲弾装填",
+        "skillNameEn": "Load Shells",
+        "cost": 6,
+        "slot": 2,
+        "isUniqueSkill": false
+      },
+      {
+        "skillNameJp": "特殊射撃強化",
+        "skillNameEn": "Special Ammo Boost",
+        "cost": 6,
+        "slot": 2,
+        "isUniqueSkill": false
+      },
+      {
+        "skillNameJp": "通常弾・連射矢強化",
+        "skillNameEn": "Normal/Rapid Up",
+        "cost": 15,
+        "slot": 3,
+        "isUniqueSkill": false
+      },
+      {
+        "skillNameJp": "貫通弾・貫通矢強化",
+        "skillNameEn": "Pierce Up",
+        "cost": 15,
+        "slot": 3,
+        "isUniqueSkill": false
+      },
+      {
+        "skillNameJp": "散弾・拡散矢強化",
+        "skillNameEn": "Spread Up",
+        "cost": 15,
+        "slot": 3,
+        "isUniqueSkill": false
+      },
+      {
+        "skillNameJp": "装填拡張",
+        "skillNameEn": "Ammo Up",
+        "cost": 15,
+        "slot": 3,
+        "isUniqueSkill": false
+      },
+      {
+        "skillNameJp": "装填速度",
+        "skillNameEn": "Reload Speed",
+        "cost": 6,
+        "slot": 1,
+        "isUniqueSkill": false
+      },
+      {
+        "skillNameJp": "反動軽減",
+        "skillNameEn": "Recoil Down",
+        "cost": 6,
+        "slot": 1,
+        "isUniqueSkill": false
+      },
+      {
+        "skillNameJp": "ブレ抑制",
+        "skillNameEn": "Steadiness",
+        "cost": 6,
+        "slot": 1,
+        "isUniqueSkill": false
+      },
+      {
+        "skillNameJp": "速射強化",
+        "skillNameEn": "Rapid Fire Up",
+        "cost": 15,
+        "slot": 3,
+        "isUniqueSkill": false
+      },
+      {
+        "skillNameJp": "防御",
+        "skillNameEn": "Defense Boost",
+        "cost": 3,
+        "slot": 1,
+        "isUniqueSkill": false
+      },
+      {
+        "skillNameJp": "精霊の加護",
+        "skillNameEn": "Divine Blessing",
+        "cost": 3,
+        "slot": 2,
+        "isUniqueSkill": false
+      },
+      {
+        "skillNameJp": "体力回復量ＵＰ",
+        "skillNameEn": "Recovery Up",
+        "cost": 3,
+        "slot": 1,
+        "isUniqueSkill": false
+      },
+      {
+        "skillNameJp": "回復速度",
+        "skillNameEn": "Recovery Speed",
+        "cost": 3,
+        "slot": 1,
+        "isUniqueSkill": false
+      },
+      {
+        "skillNameJp": "早食い",
+        "skillNameEn": "Speed Eating",
+        "cost": 3,
+        "slot": 2,
+        "isUniqueSkill": false
+      },
+      {
+        "skillNameJp": "耳栓",
+        "skillNameEn": "Earplugs",
+        "cost": 9,
+        "slot": 3,
+        "isUniqueSkill": false
+      },
+      {
+        "skillNameJp": "風圧耐性",
+        "skillNameEn": "Windproof",
+        "cost": 3,
+        "slot": 1,
+        "isUniqueSkill": false
+      },
+      {
+        "skillNameJp": "耐震",
+        "skillNameEn": "Tremor Resistance",
+        "cost": 3,
+        "slot": 1,
+        "isUniqueSkill": false
+      },
+      {
+        "skillNameJp": "泡沫の舞",
+        "skillNameEn": "Bubbly Dance",
+        "cost": 6,
+        "slot": 2,
+        "isUniqueSkill": false
+      },
+      {
+        "skillNameJp": "回避性能",
+        "skillNameEn": "Evade Window",
+        "cost": 6,
+        "slot": 2,
+        "isUniqueSkill": false
+      },
+      {
+        "skillNameJp": "回避距離ＵＰ",
+        "skillNameEn": "Evade Extender",
+        "cost": 6,
+        "slot": 2,
+        "isUniqueSkill": false
+      },
+      {
+        "skillNameJp": "属性やられ耐性",
+        "skillNameEn": "Blight Resistance",
+        "cost": 3,
+        "slot": 1,
+        "isUniqueSkill": false
+      },
+      {
+        "skillNameJp": "毒耐性",
+        "skillNameEn": "Poison Resistance",
+        "cost": 3,
+        "slot": 1,
+        "isUniqueSkill": false
+      },
+      {
+        "skillNameJp": "麻痺耐性",
+        "skillNameEn": "Paralysis Resistance",
+        "cost": 3,
+        "slot": 1,
+        "isUniqueSkill": false
+      },
+      {
+        "skillNameJp": "睡眠耐性",
+        "skillNameEn": "Sleep Resistance",
+        "cost": 3,
+        "slot": 1,
+        "isUniqueSkill": false
+      },
+      {
+        "skillNameJp": "気絶耐性",
+        "skillNameEn": "Stun Resistance",
+        "cost": 3,
+        "slot": 1,
+        "isUniqueSkill": false
+      },
+      {
+        "skillNameJp": "泥雪耐性",
+        "skillNameEn": "Muck Resistance",
+        "cost": 3,
+        "slot": 1,
+        "isUniqueSkill": false
+      },
+      {
+        "skillNameJp": "爆破やられ耐性",
+        "skillNameEn": "Blast Resistance",
+        "cost": 3,
+        "slot": 1,
+        "isUniqueSkill": false
+      },
+      {
+        "skillNameJp": "破壊王",
+        "skillNameEn": "Partbreaker",
+        "cost": 6,
+        "slot": 2,
+        "isUniqueSkill": false
+      },
+      {
+        "skillNameJp": "幸運",
+        "skillNameEn": "Good Luck",
+        "cost": 12,
+        "slot": 3,
+        "isUniqueSkill": false
+      },
+      {
+        "skillNameJp": "砥石使用高速化",
+        "skillNameEn": "Speed Sharpening",
+        "cost": 3,
+        "slot": 1,
+        "isUniqueSkill": false
+      },
+      {
+        "skillNameJp": "キノコ大好き",
+        "skillNameEn": "Mushroomancer",
+        "cost": 9,
+        "slot": 3,
+        "isUniqueSkill": false
+      },
+      {
+        "skillNameJp": "アイテム使用強化",
+        "skillNameEn": "Item Prolonger",
+        "cost": 3,
+        "slot": 1,
+        "isUniqueSkill": false
+      },
+      {
+        "skillNameJp": "広域化",
+        "skillNameEn": "Wide-Range",
+        "cost": 3,
+        "slot": 2,
+        "isUniqueSkill": false
+      },
+      {
+        "skillNameJp": "満足感",
+        "skillNameEn": "Free Meal",
+        "cost": 3,
+        "slot": 1,
+        "isUniqueSkill": false
+      },
+      {
+        "skillNameJp": "火事場力",
+        "skillNameEn": "Heroics",
+        "cost": 9,
+        "slot": 2,
+        "isUniqueSkill": false
+      },
+      {
+        "skillNameJp": "不屈",
+        "skillNameEn": "Fortify",
+        "cost": 3,
+        "slot": 2,
+        "isUniqueSkill": false
+      },
+      {
+        "skillNameJp": "ひるみ軽減",
+        "skillNameEn": "Flinch Free",
+        "cost": 3,
+        "slot": 1,
+        "isUniqueSkill": false
+      },
+      {
+        "skillNameJp": "腹減り耐性",
+        "skillNameEn": "Hunger Resistance",
+        "cost": 3,
+        "slot": 1,
+        "isUniqueSkill": false
+      },
+      {
+        "skillNameJp": "飛び込み",
+        "skillNameEn": "Leap of Faith",
+        "cost": 3,
+        "slot": 1,
+        "isUniqueSkill": false
+      },
+      {
+        "skillNameJp": "陽動",
+        "skillNameEn": "Diversion",
+        "cost": 3,
+        "slot": 1,
+        "isUniqueSkill": false
+      },
+      {
+        "skillNameJp": "乗り名人",
+        "skillNameEn": "Master Mounter",
+        "cost": 3,
+        "slot": 2,
+        "isUniqueSkill": false
+      },
+      {
+        "skillNameJp": "霞皮の恩恵",
+        "skillNameEn": "Chameleos Blessing",
+        "cost": 6,
+        "slot": 1,
+        "isUniqueSkill": false
+      },
+      {
+        "skillNameJp": "鋼殻の恩恵",
+        "skillNameEn": "Kushala Blessing",
+        "cost": 6,
+        "slot": 1,
+        "isUniqueSkill": false
+      },
+      {
+        "skillNameJp": "炎鱗の恩恵",
+        "skillNameEn": "Teostra Blessing",
+        "cost": 6,
+        "slot": 1,
+        "isUniqueSkill": false
+      },
+      {
+        "skillNameJp": "龍気活性",
+        "skillNameEn": "Dragonheart",
+        "cost": 9,
+        "slot": 4,
+        "isUniqueSkill": false
+      },
+      {
+        "skillNameJp": "翔蟲使い",
+        "skillNameEn": "Wirebug Whisperer",
+        "cost": 6,
+        "slot": 2,
+        "isUniqueSkill": false
+      },
+      {
+        "skillNameJp": "壁面移動",
+        "skillNameEn": "Wall Runner",
+        "cost": 6,
+        "slot": 2,
+        "isUniqueSkill": false
+      },
+      {
+        "skillNameJp": "逆襲",
+        "skillNameEn": "Counterstrike",
+        "cost": 6,
+        "slot": 2,
+        "isUniqueSkill": false
+      },
+      {
+        "skillNameJp": "高速変形",
+        "skillNameEn": "Rapid Morph",
+        "cost": 12,
+        "slot": 2,
+        "isUniqueSkill": false
+      },
+      {
+        "skillNameJp": "鬼火纏",
+        "skillNameEn": "Hellfire Cloak",
+        "cost": 9,
+        "slot": 3,
+        "isUniqueSkill": false
+      },
+      {
+        "skillNameJp": "血氣",
+        "skillNameEn": "Blood Rite",
+        "cost": 12,
+        "slot": 3,
+        "isUniqueSkill": false
+      },
+      {
+        "skillNameJp": "激昂",
+        "skillNameEn": "Furious",
+        "cost": 9,
+        "slot": null,
+        "isUniqueSkill": true
+      },
+      {
+        "skillNameJp": "業鎧【修羅】",
+        "skillNameEn": "Mail of Hellfire",
+        "cost": 9,
+        "slot": null,
+        "isUniqueSkill": true
+      },
+      {
+        "skillNameJp": "災禍転福",
+        "skillNameEn": "Coalescence",
+        "cost": 12,
+        "slot": 2,
+        "isUniqueSkill": false
+      },
+      {
+        "skillNameJp": "狂竜症【蝕】",
+        "skillNameEn": "Bloodlust",
+        "cost": 12,
+        "slot": 4,
+        "isUniqueSkill": false
+      },
+      {
+        "skillNameJp": "顕如盤石",
+        "skillNameEn": "Defiance",
+        "cost": 6,
+        "slot": 1,
+        "isUniqueSkill": false
+      },
+      {
+        "skillNameJp": "闇討ち",
+        "skillNameEn": "Sneak Attack",
+        "cost": 9,
+        "slot": 2,
+        "isUniqueSkill": false
+      },
+      {
+        "skillNameJp": "巧撃",
+        "skillNameEn": "Adrenaline Rush",
+        "cost": 9,
+        "slot": 2,
+        "isUniqueSkill": false
+      },
+      {
+        "skillNameJp": "煽衛",
+        "skillNameEn": "Embolden",
+        "cost": 6,
+        "slot": 2,
+        "isUniqueSkill": false
+      },
+      {
+        "skillNameJp": "合気",
+        "skillNameEn": "Redirection",
+        "cost": 9,
+        "slot": 3,
+        "isUniqueSkill": false
+      },
+      {
+        "skillNameJp": "供応",
+        "skillNameEn": "Spiribird's Call",
+        "cost": 3,
+        "slot": 1,
+        "isUniqueSkill": false
+      },
+      {
+        "skillNameJp": "チャージマスター",
+        "skillNameEn": "Charge Master",
+        "cost": 9,
+        "slot": 2,
+        "isUniqueSkill": false
+      },
+      {
+        "skillNameJp": "攻勢",
+        "skillNameEn": "Foray",
+        "cost": 9,
+        "slot": 2,
+        "isUniqueSkill": false
+      },
+      {
+        "skillNameJp": "チューンアップ",
+        "skillNameEn": "Tune-Up",
+        "cost": 9,
+        "slot": 3,
+        "isUniqueSkill": false
+      },
+      {
+        "skillNameJp": "研磨術【鋭】",
+        "skillNameEn": "Grinder (S)",
+        "cost": 9,
+        "slot": 2,
+        "isUniqueSkill": false
+      },
+      {
+        "skillNameJp": "刃鱗磨き",
+        "skillNameEn": "Bladescale Hone",
+        "cost": 9,
+        "slot": 2,
+        "isUniqueSkill": false
+      },
+      {
+        "skillNameJp": "壁面移動【翔】",
+        "skillNameEn": "Wall Runner (Boost)",
+        "cost": 3,
+        "slot": 1,
+        "isUniqueSkill": false
+      },
+      {
+        "skillNameJp": "弱点特効【属性】",
+        "skillNameEn": "Element Exploit",
+        "cost": 9,
+        "slot": 2,
+        "isUniqueSkill": false
+      },
+      {
+        "skillNameJp": "連撃",
+        "skillNameEn": "Burst",
+        "cost": 12,
+        "slot": 2,
+        "isUniqueSkill": false
+      },
+      {
+        "skillNameJp": "根性",
+        "skillNameEn": "Guts",
+        "cost": 15,
+        "slot": null,
+        "isUniqueSkill": true
+      },
+      {
+        "skillNameJp": "状態異常確定蓄積",
+        "skillNameEn": "Status Trigger",
+        "cost": 9,
+        "slot": 3,
+        "isUniqueSkill": false
+      },
+      {
+        "skillNameJp": "剛心",
+        "skillNameEn": "Intrepid Heart",
+        "cost": 6,
+        "slot": 1,
+        "isUniqueSkill": false
+      },
+      {
+        "skillNameJp": "蓄積時攻撃強化",
+        "skillNameEn": "Buildup Boost",
+        "cost": 12,
+        "slot": null,
+        "isUniqueSkill": false
+      },
+      {
+        "skillNameJp": "風纏",
+        "skillNameEn": "Wind Mantle",
+        "cost": 9,
+        "slot": null,
+        "isUniqueSkill": true
+      },
+      {
+        "skillNameJp": "粉塵纏",
+        "skillNameEn": "Powder Mantle",
+        "cost": 9,
+        "slot": null,
+        "isUniqueSkill": true
+      },
+      {
+        "skillNameJp": "冰気錬成",
+        "skillNameEn": "Frostcraft",
+        "cost": 12,
+        "slot": null,
+        "isUniqueSkill": true
+      },
+      {
+        "skillNameJp": "龍気変換",
+        "skillNameEn": "Dragon Conversion",
+        "cost": 12,
+        "slot": null,
+        "isUniqueSkill": true
+      },
+      {
+        "skillNameJp": "狂竜症【翔】",
+        "skillNameEn": "Frenzied Bloodlust",
+        "cost": 9,
+        "slot": null,
+        "isUniqueSkill": true
+      },
+      {
+        "skillNameJp": "奮闘",
+        "skillNameEn": "Strife",
+        "cost": 9,
+        "slot": null,
+        "isUniqueSkill": false
+      }
+    ]
+  }
