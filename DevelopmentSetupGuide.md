@@ -1,6 +1,6 @@
 # 仮想環境開発手順
 
-## 環境構築
+## 環境構築(初回のみ)
 
 仮想環境の作成コマンド
 
@@ -17,7 +17,7 @@ pip install numpy
 pip install google-cloud-vision # google Cloud VisionAPI用
 ```
 
-## 開発環境の起動
+## 開発環境の起動(デバッグ時)
 
 仮想環境の起動
 
