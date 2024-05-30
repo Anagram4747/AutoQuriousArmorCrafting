@@ -18,6 +18,7 @@ pip install pyautogui
 pip install numpy
 pip install google-cloud-vision
 pip3 install pytk
+pip install pyinstaller==5.13.2
 ```
 
 ## 開発環境の起動(デバッグ時)
@@ -34,4 +35,10 @@ $ myenv\Scripts\activate
 ```shell
 $ deactivate
 PS C:***\AutoQuriousArmorCrafting
+```
+
+## exeファイルの作成
+
+```shell
+pyinstaller --onefile --windowed app/main.py
 ```
