@@ -248,7 +248,7 @@
       {
         "skillNameJp": "抜刀術【技】",
         "skillNameEn": "Critical Draw",
-        "cost": 6,
+        "cost": 9,
         "slot": 2,
         "isUniqueSkill": false
       },
