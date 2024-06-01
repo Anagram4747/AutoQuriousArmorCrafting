@@ -14,6 +14,7 @@ import pydirectinput
 from PIL import Image
 from app.lib.vision.vision_api import extract_text_from_image
 from app.lib.opencv.cv2 import compare_images
+from app.lib.macro.macro import consume_prime, skip
 
 
 class MainWindow(tk.Tk):
@@ -21,10 +22,10 @@ class MainWindow(tk.Tk):
     メインウィンドウクラス
 
     Attributes:
-        button (tk.Button): クリックするとon_button_click()メソッドが呼び出されるボタン。
-        label (tk.Label): ボタンを押すと表示されるテキストラベル。
-        dropdown (ttk.Combobox): ドロップダウンメニュー。
-        entry (tk.Entry): 繰り返し回数を入力するエントリ。
+        button (tk.Button): クリックするとon_button_click()メソッドが呼び出されるボタン
+        label (tk.Label): ボタンを押すと表示されるテキストラベル
+        dropdown (ttk.Combobox): ドロップダウンメニュー
+        entry (tk.Entry): 繰り返し回数を入力するエントリ
     """
 
     CONFIG_FILE = "config.ini"
@@ -149,28 +150,13 @@ class MainWindow(tk.Tk):
         pydirectinput.click(1, 1)
 
         for i in range(repetitions):
-            self.consume_prime()
+            consume_prime()
             time.sleep(1.65)
             file_name = self.save_screenshot(i + 1)
             self.perform_ocr(file_name)
             self.compare_target_images(i + 1)
             time.sleep(0.5)
-            self.skip()
-
-    def consume_prime(self):
-        """
-        おまかせ選択で琥珀を選択し、錬成を行うメソッド
-
-        Args:
-            None
-        Returns:
-            None
-        """
-        pydirectinput.press('x')
-        self.precise_sleep(0.017)  # 17msの遅延
-        pydirectinput.press('space')
-        self.precise_sleep(0.034)  # 34msの遅延
-        pydirectinput.press('space')
+            skip()
 
     def save_screenshot(self, index):
         """
@@ -195,36 +181,6 @@ class MainWindow(tk.Tk):
         screenshot.save(screenshot_path)
 
         return output_file_name
-
-    def skip(self):
-        """
-        右クリック > 'a' > 'space' > 'space'の順にキーを押し、キーの間に遅延を挟むメソッド
-
-        Args:
-            None
-        Returns:
-            None
-        """
-        pydirectinput.press('b')
-        self.precise_sleep(0.034)  # 17msの遅延
-        pydirectinput.press('a')
-        self.precise_sleep(0.017)  # 17msの遅延
-        pydirectinput.press('space')
-        self.precise_sleep(0.017)  # 17msの遅延
-        pydirectinput.press('space')
-
-    def precise_sleep(self, duration):
-        """
-        指定された期間だけスリープするメソッド
-
-        Args:
-            duration (float): スリープする時間（秒）
-        Returns:
-            None
-        """
-        end_time = time.time() + duration
-        while time.time() < end_time:
-            pass
 
     def perform_ocr(self, file_name):
         """
@@ -280,7 +236,7 @@ class MainWindow(tk.Tk):
 
     def on_closing(self):
         """
-        ウィンドウが閉じられるときに実行されるメソッド。選択状態を保存します。
+        ウィンドウが閉じられるときに実行されるメソッド。選択状態を保存する
 
         Args:
             None
