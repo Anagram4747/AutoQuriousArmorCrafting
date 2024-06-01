@@ -248,7 +248,7 @@
       {
         "skillNameJp": "抜刀術【技】",
         "skillNameEn": "Critical Draw",
-        "cost": 6,
+        "cost": 9,
         "slot": 2,
         "isUniqueSkill": false
       },
@@ -835,6 +835,13 @@
       },
       {
         "skillNameJp": "冰気錬成",
+        "skillNameEn": "Frostcraft",
+        "cost": 12,
+        "slot": null,
+        "isUniqueSkill": true
+      },
+      {
+        "skillNameJp": "冰気鍊成",
         "skillNameEn": "Frostcraft",
         "cost": 12,
         "slot": null,
