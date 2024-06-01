@@ -33,15 +33,15 @@ def consume_royal():
         Returns:
             None
         """
-    pydirectinput.press('x')
+    pydirectinput.press('w')
     precise_sleep(0.034)  # 34msの遅延
-    pydirectinput.press('x')
+    pydirectinput.press('w')
     precise_sleep(0.034)  # 34msの遅延
-    pydirectinput.press('x')
+    pydirectinput.press('w')
     precise_sleep(0.017)  # 17msの遅延
     pydirectinput.press('space')
     precise_sleep(0.034)  # 34msの遅延
-    pydirectinput.press('x')
+    pydirectinput.press('w')
     precise_sleep(0.017)  # 17msの遅延
     pydirectinput.press('space')
     precise_sleep(0.034)  # 34msの遅延
@@ -61,13 +61,13 @@ def consume_pure():
         Returns:
             None
         """
-    pydirectinput.press('x')
+    pydirectinput.press('w')
     precise_sleep(0.034)  # 34msの遅延
-    pydirectinput.press('x')
+    pydirectinput.press('w')
     precise_sleep(0.017)  # 17msの遅延
     pydirectinput.press('space')
     precise_sleep(0.034)  # 34msの遅延
-    pydirectinput.press('x')
+    pydirectinput.press('w')
     precise_sleep(0.017)  # 17msの遅延
     pydirectinput.press('space')
     precise_sleep(0.034)  # 34msの遅延
