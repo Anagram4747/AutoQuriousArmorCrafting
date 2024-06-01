@@ -12,7 +12,7 @@ import requests
 import pyautogui
 import pydirectinput
 from app.lib.crafting_result.crafting_result import get_crafting_result
-from app.lib.macro.macro import consume_prime, skip
+from app.lib.macro.macro import consume_prime, consume_royal, consume_pure, skip
 
 
 class MainWindow(tk.Tk):
@@ -119,7 +119,7 @@ class MainWindow(tk.Tk):
         Returns:
             None
         """
-        self.label.config(text="Macro Start!")
+        self.label.config(text="錬成開始！")
         repetitions = int(self.entry.get())
 
         temp_dir = "temp"
@@ -134,8 +134,29 @@ class MainWindow(tk.Tk):
         # ウィンドウを切り替え
         pydirectinput.click(1, 1)
 
+        dropdown_selection = self.dropdown.get()
+
         for i in range(repetitions):
-            consume_prime()
+            # 繰り返し回数の表示
+            self.label.config(text=f"錬成中: {i + 1} / {repetitions}")
+            self.update_idletasks()  # ラベルの更新を即座に反映
+
+            if dropdown_selection == "おまかせ選択(自動選択)":
+                consume_prime()
+            elif dropdown_selection == "真・尖のみ使用":
+                if i % 2 == 0:
+                    consume_pure()
+                else:
+                    consume_prime()
+            elif dropdown_selection == "真・王・尖のみ使用":
+                cycle = i % 4
+                if cycle == 0:
+                    consume_royal()
+                elif cycle == 1:
+                    consume_pure()
+                else:
+                    consume_prime()
+
             time.sleep(1.65)
             file_name = self.save_screenshot(i + 1)
             success = get_crafting_result(file_name, i + 1)
@@ -148,6 +169,8 @@ class MainWindow(tk.Tk):
                 os.remove(os.path.join(temp_dir, file_name))
             time.sleep(0.5)
             skip()
+
+        self.label.config(text="錬成終了！")
 
     def save_screenshot(self, index):
         """
