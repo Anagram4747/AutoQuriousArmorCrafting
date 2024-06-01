@@ -179,10 +179,6 @@ def get_crafting_result(file_name, index):
         if SKILL_DICT.get(skill_name, {}).get('isUniqueSkill', False):
             unique_skill_count += 1
 
-    output_dir = "debug"
-    if not os.path.exists(output_dir):
-        os.makedirs(output_dir)
-
     # 戻り値の条件分岐
     if total_negative_skill_value == 0:
         if cost >= 21:
