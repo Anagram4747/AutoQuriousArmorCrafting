@@ -183,35 +183,31 @@ def get_crafting_result(file_name, index):
     if not os.path.exists(output_dir):
         os.makedirs(output_dir)
 
-    # デバッグ部分
-    with open(os.path.join(output_dir, f"result{index}.txt"), 'w', encoding='utf-8') as output_file:
-        output_file.write(f"slot:{slot_count}\n")
-        for skill_name, skill_value in skills:
-            output_file.write(f"{skill_name} : {skill_value}\n")
-        output_file.write(f"total cost: {cost}\n")
-        output_file.write(
-            f"total negative skill value: {total_negative_skill_value}\n")
-        output_file.write(f"unique skill count: {unique_skill_count}\n")
-
     # 戻り値の条件分岐
     if total_negative_skill_value == 0:
         if cost >= 21:
             return True
+        elif cost >= 18 and unique_skill_count >= 1:
+            return True
         else:
-            return cost >= 18 & unique_skill_count >= 1
-    elif total_negative_skill_value == 1:
+            return False
+    elif total_negative_skill_value == -1:
         if unique_skill_count >= 2:
             return True
-        elif unique_skill_count >= 1:
-            return cost >= 21
+        elif unique_skill_count >= 1 and cost >= 21:
+            return True
+        elif unique_skill_count == 0 and cost >= 24:
+            return True
         else:
-            return cost >= 24
-    elif total_negative_skill_value == 2:
+            return False
+    elif total_negative_skill_value < -2:
         if unique_skill_count >= 2:
             return True
-        elif unique_skill_count >= 1:
-            return cost >= 24
+        elif unique_skill_count >= 1 and cost >= 24:
+            return True
+        elif unique_skill_count == 0 and cost >= 27:
+            return True
         else:
-            return cost >= 27
-
-    return False
+            return False
+    else:
+        return False
