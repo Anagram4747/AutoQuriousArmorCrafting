@@ -11,7 +11,8 @@ import os
 import pyautogui
 import pydirectinput
 from PIL import Image
-from app.vision.vision_api import extract_text_from_image, compare_images
+from app.vision.vision_api import extract_text_from_image
+from app.opencv.cv2 import compare_images
 
 
 class MainWindow(tk.Tk):
