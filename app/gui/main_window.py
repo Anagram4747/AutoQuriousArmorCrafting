@@ -1,5 +1,5 @@
 """
-このモジュールは、mainwindowの内容を表します。
+このモジュールは、mainwindowの内容を表します
 """
 
 import tkinter as tk
@@ -8,16 +8,17 @@ import configparser
 import time
 import shutil
 import os
+import sys
 import pyautogui
 import pydirectinput
 from PIL import Image
-from app.vision.vision_api import extract_text_from_image
-from app.opencv.cv2 import compare_images
+from app.lib.vision.vision_api import extract_text_from_image
+from app.lib.opencv.cv2 import compare_images
 
 
 class MainWindow(tk.Tk):
     """
-    メインウィンドウクラス。
+    メインウィンドウクラス
 
     Attributes:
         button (tk.Button): クリックするとon_button_click()メソッドが呼び出されるボタン。
@@ -28,19 +29,27 @@ class MainWindow(tk.Tk):
 
     CONFIG_FILE = "config.ini"
     TARGET_REGION = (1005, 270, 135, 42)
+
+    @staticmethod
+    def get_resource_path(relative_path):
+        """ ビルドされたEXEファイルに対するリソースの相対パスを取得する。 """
+        if hasattr(sys, '_MEIPASS'):
+            return os.path.join(sys._MEIPASS, relative_path)
+        return os.path.join(os.path.abspath("."), relative_path)
+
     COMPARISON_IMAGES = [
-        "../app/resources/slots/slots441.png",
-        "../app/resources/slots/slots431.png",
-        "../app/resources/slots/slots421.png",
-        "../app/resources/slots/slots411.png",
-        "../app/resources/slots/slots311.png",
-        "../app/resources/slots/slots310.png",
-        "../app/resources/slots/slots300.png"
+        get_resource_path.__func__("app/resources/slots/slots441.png"),
+        get_resource_path.__func__("app/resources/slots/slots431.png"),
+        get_resource_path.__func__("app/resources/slots/slots421.png"),
+        get_resource_path.__func__("app/resources/slots/slots411.png"),
+        get_resource_path.__func__("app/resources/slots/slots311.png"),
+        get_resource_path.__func__("app/resources/slots/slots310.png"),
+        get_resource_path.__func__("app/resources/slots/slots300.png")
     ]
 
     def __init__(self):
         """
-        ウィンドウを初期化する。
+        ウィンドウを初期化する
 
         Args:
             None
@@ -59,7 +68,7 @@ class MainWindow(tk.Tk):
 
     def create_widgets(self):
         """
-        ウィジェットを作成し、配置する。
+        ウィジェットを作成し、配置する
 
         Args:
             None
@@ -94,7 +103,7 @@ class MainWindow(tk.Tk):
 
     def read_config(self, filename):
         """
-        指定されたファイルを読み込むメソッド。
+        指定されたファイルを読み込むメソッド
 
         Args:
             filename (str): 読み込む設定ファイルの名前。
@@ -106,7 +115,7 @@ class MainWindow(tk.Tk):
 
     def validate(self, value_if_allowed):
         """
-        入力が有効かどうかを検証するメソッド。
+        入力が有効かどうかを検証するメソッド
 
         Args:
             value_if_allowed (str): 入力された値。
@@ -121,7 +130,7 @@ class MainWindow(tk.Tk):
 
     def on_button_click(self):
         """
-        ボタンがクリックされたときに実行されるメソッド。
+        ボタンがクリックされたときに実行されるメソッド
 
         Args:
             None
@@ -136,6 +145,9 @@ class MainWindow(tk.Tk):
             shutil.rmtree(temp_dir)
         os.makedirs(temp_dir)
 
+        # ウィンドウを切り替え
+        pydirectinput.click(1, 1)
+
         for i in range(repetitions):
             self.consume_prime()
             time.sleep(1.65)
@@ -147,30 +159,7 @@ class MainWindow(tk.Tk):
 
     def consume_prime(self):
         """
-        座標1, 1を左クリックし、'x', 'space', 'space'の順に入力するマクロを実行するメソッド。
-
-        Args:
-            None
-        Returns:
-            None
-        """
-        self.click_at_position()
-        self.set_prime()
-
-    def click_at_position(self):
-        """
-        座標1, 1を左クリックするメソッド。
-
-        Args:
-            None
-        Returns:
-            None
-        """
-        pydirectinput.click(1, 1)
-
-    def set_prime(self):
-        """
-        'x', 'space', 'space'の順にキーを押し、キーの間に遅延を挟むメソッド。
+        おまかせ選択で琥珀を選択し、錬成を行うメソッド
 
         Args:
             None
@@ -185,8 +174,8 @@ class MainWindow(tk.Tk):
 
     def save_screenshot(self, index):
         """
-        スクリーンショットを取得し、temp/result_<index>.pngとして保存するメソッド。
-        既にファイルが存在する場合は削除します。
+        スクリーンショットを取得し、temp/result_<index>.pngとして保存するメソッド
+        既にファイルが存在する場合は削除します
 
         Args:
             index (int): スクリーンショットのインデックス。
@@ -209,7 +198,7 @@ class MainWindow(tk.Tk):
 
     def skip(self):
         """
-        右クリック > 'a' > 'space' > 'space'の順にキーを押し、キーの間に遅延を挟むメソッド。
+        右クリック > 'a' > 'space' > 'space'の順にキーを押し、キーの間に遅延を挟むメソッド
 
         Args:
             None
@@ -226,10 +215,10 @@ class MainWindow(tk.Tk):
 
     def precise_sleep(self, duration):
         """
-        指定された期間だけスリープするメソッド。
+        指定された期間だけスリープするメソッド
 
         Args:
-            duration (float): スリープする時間（秒）。
+            duration (float): スリープする時間（秒）
         Returns:
             None
         """
@@ -239,7 +228,7 @@ class MainWindow(tk.Tk):
 
     def perform_ocr(self, file_name):
         """
-        tempフォルダ内の画像に対してOCRを実行し、結果をdebug/name.txtに保存するメソッド。
+        tempフォルダ内の画像に対してOCRを実行し、結果をdebug/name.txtに保存するメソッド
 
         Args:
             file_name (str): 読み込みファイル名
@@ -257,10 +246,10 @@ class MainWindow(tk.Tk):
 
     def compare_target_images(self, index):
         """
-        画像を比較し、最も類似度が高い画像を特定するメソッド。
+        画像を比較し、最も類似度が高い画像を特定するメソッド
 
         Args:
-            index (int): スクリーンショットのインデックス。
+            index (int): スクリーンショットのインデックス
         Returns:
             None
         """
