@@ -1,1 +1,8 @@
 configparser
+pydirectinput
+pyautogui
+numpy
+google-cloud-vision
+pytk
+opencv-python
+pyinstaller==5.13.2

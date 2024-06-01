@@ -13,13 +13,7 @@ pyautoguiは、ないとpydirectinputの座標がおかしくなるらしい
 参考：[pythonで、ゲームを自動化する「pydirectinput」](https://namake2.hatenablog.com/entry/2023/12/28/055412)
 
 ```shell
-pip install pydirectinput
-pip install pyautogui
-pip install numpy
-pip install google-cloud-vision
-pip3 install pytk
-pip install opencv-python
-pip install pyinstaller==5.13.2
+pip install -r requirements.txt
 ```
 
 ## 開発環境の起動(デバッグ時)
@@ -28,22 +22,19 @@ pip install pyinstaller==5.13.2
 
 ```shell
 $ myenv\Scripts\activate
-(myenv) PS C:***\AutoQuriousArmorCrafting
+(myenv) PS *\AutoQuriousArmorCrafting
 ```
 
 仮想環境の終了
 
 ```shell
 $ deactivate
-PS C:***\AutoQuriousArmorCrafting
+PS *\AutoQuriousArmorCrafting
 ```
 
 ## exeファイルの作成
 
 ```shell
-pyinstaller --onefile --windowed app/main.py
-
-# main.specの内容でビルド
 pyinstaller main.spec
 ```
 
@@ -62,3 +53,8 @@ pyinstaller main.spec
   - 64bit版のインストーラー取得
   - インストーラーの指示に従ってインストール
   - インストール後にプロジェクト選択が必要なので、新しく作ったプロジェクトを選択
+
+## Discord bot
+
+サーバー設定 > Webフックを作成 > bot名と送信先チャネルを選択 > URLをメモ
+URLを設定する
