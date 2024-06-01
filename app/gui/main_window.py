@@ -33,7 +33,8 @@ class MainWindow(tk.Tk):
 
     @staticmethod
     def get_resource_path(relative_path):
-        """ ビルドされたEXEファイルに対するリソースの相対パスを取得する。 """
+        """ ビルドされたEXEファイルに対するリソースの相対パスを取得する """
+        #  pylint: disable=protected-access
         if hasattr(sys, '_MEIPASS'):
             return os.path.join(sys._MEIPASS, relative_path)
         return os.path.join(os.path.abspath("."), relative_path)
