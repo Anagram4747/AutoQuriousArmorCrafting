@@ -27,7 +27,7 @@ class MainWindow(tk.Tk):
     """
 
     CONFIG_FILE = "config.ini"
-    DISCORD_WEBHOOK_URL = "https://discord.com/api/webhooks/1246517307086475324/Rg4nTN3mjkrhed36Op9r_GoDPXpzlWVN5_fRA75CXrFOZHywjo5IeT0JDKVuH5Iv5jEO"
+    DISCORD_WEBHOOK_URL = ""
 
     def __init__(self):
         """
