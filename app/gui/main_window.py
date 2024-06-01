@@ -28,13 +28,13 @@ class MainWindow(tk.Tk):
     CONFIG_FILE = "config.ini"
     TARGET_REGION = (1005, 270, 135, 42)
     COMPARISON_IMAGES = [
-        "app/resources/slots/slots441.png",
-        "app/resources/slots/slots431.png",
-        "app/resources/slots/slots421.png",
-        "app/resources/slots/slots411.png",
-        "app/resources/slots/slots311.png",
-        "app/resources/slots/slots310.png",
-        "app/resources/slots/slots300.png"
+        "../app/resources/slots/slots441.png",
+        "../app/resources/slots/slots431.png",
+        "../app/resources/slots/slots421.png",
+        "../app/resources/slots/slots411.png",
+        "../app/resources/slots/slots311.png",
+        "../app/resources/slots/slots310.png",
+        "../app/resources/slots/slots300.png"
     ]
 
     def __init__(self):
@@ -138,8 +138,8 @@ class MainWindow(tk.Tk):
         for i in range(repetitions):
             self.consume_prime()
             time.sleep(1.65)
-            self.save_screenshot(i + 1)
-            self.perform_ocr()
+            file_name = self.save_screenshot(i + 1)
+            self.perform_ocr(file_name)
             self.compare_target_images(i + 1)
             time.sleep(0.5)
             self.skip()
@@ -193,15 +193,18 @@ class MainWindow(tk.Tk):
             None
         """
         output_dir = "temp"
+        output_file_name = f"result_{index}.png"
         if not os.path.exists(output_dir):
             os.makedirs(output_dir)
 
-        screenshot_path = os.path.join(output_dir, f"result_{index}.png")
+        screenshot_path = os.path.join(output_dir, output_file_name)
         if os.path.exists(screenshot_path):
             os.remove(screenshot_path)
 
         screenshot = pyautogui.screenshot()
         screenshot.save(screenshot_path)
+
+        return output_file_name
 
     def skip(self):
         """
@@ -233,12 +236,12 @@ class MainWindow(tk.Tk):
         while time.time() < end_time:
             pass
 
-    def perform_ocr(self):
+    def perform_ocr(self, file_name):
         """
         tempフォルダ内の画像に対してOCRを実行し、結果をdebug/name.txtに保存するメソッド。
 
         Args:
-            None
+            file_name (str): 読み込みファイル名
         Returns:
             None
         """
@@ -247,11 +250,9 @@ class MainWindow(tk.Tk):
             os.makedirs(output_dir)
 
         with open(os.path.join(output_dir, "name.txt"), 'w', encoding='utf-8') as output_file:
-            for image_name in os.listdir("temp"):
-                if image_name.endswith(".png"):
-                    image_path = os.path.join("temp", image_name)
-                    text = extract_text_from_image(image_path)
-                    output_file.write(f"{image_name}:\n{text}\n\n")
+            image_path = os.path.join("temp", file_name)
+            text = extract_text_from_image(image_path)
+            output_file.write(f"{file_name}:\n{text}\n\n")
 
     def compare_target_images(self, index):
         """
