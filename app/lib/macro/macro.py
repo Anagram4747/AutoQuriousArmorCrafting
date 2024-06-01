@@ -10,7 +10,7 @@ import pydirectinput
 
 def consume_prime():
     """
-        おまかせ選択で琥珀を選択し、錬成を行う
+        精気琥珀・尖を選択し、錬成を行う
 
         Args:
             None
@@ -18,6 +18,60 @@ def consume_prime():
             None
         """
     pydirectinput.press('x')
+    precise_sleep(0.017)  # 17msの遅延
+    pydirectinput.press('space')
+    precise_sleep(0.034)  # 34msの遅延
+    pydirectinput.press('space')
+
+
+def consume_royal():
+    """
+        精気琥珀・王を選択し、錬成を行う
+
+        Args:
+            None
+        Returns:
+            None
+        """
+    pydirectinput.press('x')
+    precise_sleep(0.034)  # 34msの遅延
+    pydirectinput.press('x')
+    precise_sleep(0.034)  # 34msの遅延
+    pydirectinput.press('x')
+    precise_sleep(0.017)  # 17msの遅延
+    pydirectinput.press('space')
+    precise_sleep(0.034)  # 34msの遅延
+    pydirectinput.press('x')
+    precise_sleep(0.017)  # 17msの遅延
+    pydirectinput.press('space')
+    precise_sleep(0.034)  # 34msの遅延
+    pydirectinput.press('tab')
+    precise_sleep(0.017)  # 17msの遅延
+    pydirectinput.press('space')
+    precise_sleep(0.034)  # 34msの遅延
+    pydirectinput.press('space')
+
+
+def consume_pure():
+    """
+        精気琥珀・真を選択し、錬成を行う
+
+        Args:
+            None
+        Returns:
+            None
+        """
+    pydirectinput.press('x')
+    precise_sleep(0.034)  # 34msの遅延
+    pydirectinput.press('x')
+    precise_sleep(0.017)  # 17msの遅延
+    pydirectinput.press('space')
+    precise_sleep(0.034)  # 34msの遅延
+    pydirectinput.press('x')
+    precise_sleep(0.017)  # 17msの遅延
+    pydirectinput.press('space')
+    precise_sleep(0.034)  # 34msの遅延
+    pydirectinput.press('tab')
     precise_sleep(0.017)  # 17msの遅延
     pydirectinput.press('space')
     precise_sleep(0.034)  # 34msの遅延
