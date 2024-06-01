@@ -121,9 +121,13 @@ class MainWindow(tk.Tk):
         repetitions = int(self.entry.get())
 
         temp_dir = "temp"
+        result_dir = "result"
         if os.path.exists(temp_dir):
             shutil.rmtree(temp_dir)
         os.makedirs(temp_dir)
+
+        if not os.path.exists(result_dir):
+            os.makedirs(result_dir)
 
         # ウィンドウを切り替え
         pydirectinput.click(1, 1)
@@ -135,8 +139,9 @@ class MainWindow(tk.Tk):
             success = get_crafting_result(file_name, i + 1)
             if success:
                 print("Crafting result obtained successfully")
-            else:
-                os.remove(os.path.join("temp", file_name))
+                shutil.copy(os.path.join(temp_dir, file_name),
+                            os.path.join(result_dir, file_name))
+            os.remove(os.path.join(temp_dir, file_name))
             time.sleep(0.5)
             skip()
 
