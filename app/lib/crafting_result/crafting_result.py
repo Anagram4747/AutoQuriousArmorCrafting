@@ -19,15 +19,16 @@ def get_resource_path(relative_path):
     return os.path.join(os.path.abspath("."), relative_path)
 
 
-COMPARISON_IMAGES = [
-    get_resource_path("app/resources/slots/slots441.png"),
-    get_resource_path("app/resources/slots/slots431.png"),
-    get_resource_path("app/resources/slots/slots421.png"),
-    get_resource_path("app/resources/slots/slots411.png"),
-    get_resource_path("app/resources/slots/slots311.png"),
-    get_resource_path("app/resources/slots/slots310.png"),
-    get_resource_path("app/resources/slots/slots300.png")
-]
+# スロット画像とそのスロット番号の辞書
+SLOT_IMAGES = {
+    0: get_resource_path("app/resources/slots/slots300.png"),
+    1: get_resource_path("app/resources/slots/slots310.png"),
+    2: get_resource_path("app/resources/slots/slots311.png"),
+    3: get_resource_path("app/resources/slots/slots411.png"),
+    4: get_resource_path("app/resources/slots/slots421.png"),
+    5: get_resource_path("app/resources/slots/slots431.png"),
+    6: get_resource_path("app/resources/slots/slots441.png")
+}
 
 
 def perform_ocr(file_name):
@@ -49,19 +50,15 @@ def perform_ocr(file_name):
         output_file.write(f"{file_name}:\n{text}\n\n")
 
 
-def compare_target_images(index):
+def get_slots_count(index):
     """
-    画像を比較し、最も類似度が高い画像を特定するメソッド
+    画像を比較し、最も類似度が高い画像のスロット数を返すメソッド
 
     Args:
         index (int): スクリーンショットのインデックス
     Returns:
-        None
+        int: 最も類似度が高いスロットの番号
     """
-    output_dir = "debug"
-    if not os.path.exists(output_dir):
-        os.makedirs(output_dir)
-
     # 最初に保存したスクリーンショットのトリミング
     screenshot_path = os.path.join("temp", f"result_{index}.png")
     screenshot = Image.open(screenshot_path)
@@ -70,18 +67,16 @@ def compare_target_images(index):
     target_image_path = os.path.join("temp", f"slots_{index}.png")
     target_image.save(target_image_path)
 
-    best_match = None
     best_similarity = 0.0
+    best_slot = -1
 
-    for comparison_image in COMPARISON_IMAGES:
+    for slot_plus, comparison_image in SLOT_IMAGES.items():
         similarity = compare_images(target_image_path, comparison_image)
         if similarity > best_similarity:
             best_similarity = similarity
-            best_match = comparison_image
+            best_slot = slot_plus
 
-    with open(os.path.join(output_dir, "slots.txt"), 'w', encoding='utf-8') as output_file:
-        output_file.write(
-            f"Best match: {best_match}\nSimilarity: {best_similarity}\n")
+    return best_slot
 
 
 def get_crafting_result(file_name, index):
@@ -95,5 +90,12 @@ def get_crafting_result(file_name, index):
         bool: 成功時にはTrueを返す
     """
     perform_ocr(file_name)
-    compare_target_images(index)
+    slot_count = get_slots_count(index)
+    output_dir = "debug"
+    if not os.path.exists(output_dir):
+        os.makedirs(output_dir)
+
+    with open(os.path.join(output_dir, "result.txt"), 'w', encoding='utf-8') as output_file:
+        output_file.write(f"slot:{slot_count}\n")
+
     return True
