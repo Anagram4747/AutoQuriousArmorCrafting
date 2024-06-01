@@ -9,7 +9,8 @@ a = Analysis(
     pathex=[],
     binaries=[],
     datas=[
-        ('app/resources/slots/*.png', 'app/resources/slots')
+        ('app/resources/slots/*.png', 'app/resources/slots'),
+        ('app/resources/skills.json', 'app/resources')
     ],
     hiddenimports=[],
     hookspath=[],

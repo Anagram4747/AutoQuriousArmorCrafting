@@ -1,5 +1,5 @@
 """
-このモジュールは、傀異錬成の結果を判定する処理を提供します。
+このモジュールは、傀異錬成の結果を判定する処理を提供します
 """
 
 import os
@@ -193,4 +193,25 @@ def get_crafting_result(file_name, index):
             f"total negative skill value: {total_negative_skill_value}\n")
         output_file.write(f"unique skill count: {unique_skill_count}\n")
 
-    return True
+    # 戻り値の条件分岐
+    if total_negative_skill_value == 0:
+        if cost >= 21:
+            return True
+        else:
+            return cost >= 18 & unique_skill_count >= 1
+    elif total_negative_skill_value == 1:
+        if unique_skill_count >= 2:
+            return True
+        elif unique_skill_count >= 1:
+            return cost >= 21
+        else:
+            return cost >= 24
+    elif total_negative_skill_value == 2:
+        if unique_skill_count >= 2:
+            return True
+        elif unique_skill_count >= 1:
+            return cost >= 24
+        else:
+            return cost >= 27
+
+    return False

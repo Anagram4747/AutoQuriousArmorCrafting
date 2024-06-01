@@ -135,6 +135,8 @@ class MainWindow(tk.Tk):
             success = get_crafting_result(file_name, i + 1)
             if success:
                 print("Crafting result obtained successfully")
+            else:
+                os.remove(os.path.join("temp", file_name))
             time.sleep(0.5)
             skip()
 
