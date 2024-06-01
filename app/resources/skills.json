@@ -841,6 +841,13 @@
         "isUniqueSkill": true
       },
       {
+        "skillNameJp": "冰気鍊成",
+        "skillNameEn": "Frostcraft",
+        "cost": 12,
+        "slot": null,
+        "isUniqueSkill": true
+      },
+      {
         "skillNameJp": "龍気変換",
         "skillNameEn": "Dragon Conversion",
         "cost": 12,
