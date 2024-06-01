@@ -4,6 +4,7 @@
 
 import os
 import sys
+import json
 from PIL import Image
 from app.lib.vision.vision_api import extract_text_from_image
 from app.lib.opencv.cv2 import compare_images
@@ -44,6 +45,26 @@ SLOT_IMAGES = {
     5: get_resource_path("app/resources/slots/slots431.png"),
     6: get_resource_path("app/resources/slots/slots441.png")
 }
+
+
+def load_skills_json():
+    """ スキル情報を JSON ファイルから読み込む関数 """
+    json_path = get_resource_path("app/resources/skills.json")
+    with open(json_path, 'r', encoding='utf-8') as f:
+        data = json.load(f)
+
+    skill_dict = {
+        skill.get('skillNameJp'): {
+            'cost': int(skill.get('cost')),
+            'isUniqueSkill': bool(skill.get('isUniqueSkill'))
+        }
+        for skill in data['skills']
+    }
+    return skill_dict
+
+
+# スキル情報を読み込んで定数として保持
+SKILL_DICT = load_skills_json()
 
 
 def get_slots_count(index):
@@ -112,7 +133,21 @@ def get_skills(screenshot_path):
         value_text = extract_text_from_image(value_image_path)
 
         if name_text.strip() and value_text.strip():  # 両方が空白でないことを確認
-            skills.append((name_text, value_text))
+            # value_textの内容を変換
+            value_text = value_text.replace(" ", "")
+            if value_text == "なし":
+                value = -2
+            elif value_text == "Lv-1":
+                value = -1
+            elif value_text.startswith("Lv+"):
+                try:
+                    value = int(value_text[3:])
+                except ValueError:
+                    value = 0  # 変換できない場合のデフォルト値
+            else:
+                value = 0  # 変換できない場合のデフォルト値
+
+            skills.append((name_text, value))
 
     return skills
 
@@ -129,18 +164,33 @@ def get_crafting_result(file_name, index):
     """
     slot_count = get_slots_count(index)
     skills = get_skills(os.path.join("temp", file_name))
+
+    # コスト計算
+    cost = slot_count * 6
+    total_negative_skill_value = 0
+    unique_skill_count = 0
+
+    for skill_name, skill_value in skills:
+        if skill_value > 0:
+            cost += SKILL_DICT.get(skill_name, {}).get('cost', 0) * skill_value
+        elif skill_value < 0:
+            total_negative_skill_value += skill_value
+
+        if SKILL_DICT.get(skill_name, {}).get('isUniqueSkill', False):
+            unique_skill_count += 1
+
     output_dir = "debug"
     if not os.path.exists(output_dir):
         os.makedirs(output_dir)
 
+    # デバッグ部分
     with open(os.path.join(output_dir, f"result{index}.txt"), 'w', encoding='utf-8') as output_file:
         output_file.write(f"slot:{slot_count}\n")
         for skill_name, skill_value in skills:
             output_file.write(f"{skill_name} : {skill_value}\n")
-
-    # デバッグ情報の追加
-    print(f"Slot count: {slot_count}")
-    for skill_name, skill_value in skills:
-        print(f"Skill: {skill_name}, Value: {skill_value}")
+        output_file.write(f"total cost: {cost}\n")
+        output_file.write(
+            f"total negative skill value: {total_negative_skill_value}\n")
+        output_file.write(f"unique skill count: {unique_skill_count}\n")
 
     return True
