@@ -8,6 +8,7 @@ import configparser
 import time
 import shutil
 import os
+import requests
 import pyautogui
 import pydirectinput
 from app.lib.crafting_result.crafting_result import get_crafting_result
@@ -26,6 +27,7 @@ class MainWindow(tk.Tk):
     """
 
     CONFIG_FILE = "config.ini"
+    DISCORD_WEBHOOK_URL = "https://discord.com/api/webhooks/1246517307086475324/Rg4nTN3mjkrhed36Op9r_GoDPXpzlWVN5_fRA75CXrFOZHywjo5IeT0JDKVuH5Iv5jEO"
 
     def __init__(self):
         """
@@ -139,9 +141,11 @@ class MainWindow(tk.Tk):
             success = get_crafting_result(file_name, i + 1)
             if success:
                 print("Crafting result obtained successfully")
-                shutil.copy(os.path.join(temp_dir, file_name),
-                            os.path.join(result_dir, file_name))
-            os.remove(os.path.join(temp_dir, file_name))
+                result_path = os.path.join(result_dir, file_name)
+                shutil.copy(os.path.join(temp_dir, file_name), result_path)
+                self.send_to_discord(result_path)
+            else:
+                os.remove(os.path.join(temp_dir, file_name))
             time.sleep(0.5)
             skip()
 
@@ -168,6 +172,27 @@ class MainWindow(tk.Tk):
         screenshot.save(screenshot_path)
 
         return output_file_name
+
+    def send_to_discord(self, file_path):
+        """
+        画像をDiscordに送信するメソッド
+
+        Args:
+            file_path (str): 送信する画像ファイルのパス。
+        Returns:
+            None
+        """
+        with open(file_path, 'rb') as f:
+            response = requests.post(
+                self.DISCORD_WEBHOOK_URL,
+                files={'file': f},
+                timeout=30  # タイムアウトを30秒に設定
+            )
+            if response.status_code == 204:
+                print("Image sent to Discord successfully")
+            else:
+                print(
+                    f"Failed to send image to Discord: {response.status_code}")
 
     def on_closing(self):
         """
