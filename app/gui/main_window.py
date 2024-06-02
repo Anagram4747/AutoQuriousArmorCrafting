@@ -3,7 +3,7 @@
 """
 
 import tkinter as tk
-from tkinter import ttk
+from tkinter import ttk, simpledialog
 import configparser
 import time
 import shutil
@@ -24,10 +24,10 @@ class MainWindow(tk.Tk):
         label (tk.Label): ボタンを押すと表示されるテキストラベル
         dropdown (ttk.Combobox): ドロップダウンメニュー
         entry (tk.Entry): 繰り返し回数を入力するエントリ
+        DISCORD_WEBHOOK_URL (str): Discord Webhook URL
     """
 
     CONFIG_FILE = "config.ini"
-    DISCORD_WEBHOOK_URL = ""
 
     def __init__(self):
         """
@@ -43,6 +43,7 @@ class MainWindow(tk.Tk):
         self.geometry("400x300")
 
         self.config = configparser.ConfigParser()
+        self.DISCORD_WEBHOOK_URL = ""   # pylint: disable=invalid-name
         self.read_config(self.CONFIG_FILE)
 
         self.create_widgets()
@@ -61,9 +62,6 @@ class MainWindow(tk.Tk):
             self, text="錬成開始", command=self.on_button_click)
         self.button.pack(pady=20)
 
-        self.label = tk.Label(self, text="")
-        self.label.pack(pady=20)
-
         tk.Label(self, text="消費タイプ").pack()
         self.dropdown_values = [
             "おまかせ選択(自動選択)",
@@ -81,7 +79,14 @@ class MainWindow(tk.Tk):
         vcmd = (self.register(self.validate), "%P")
         self.entry = tk.Entry(self, validate="key", validatecommand=vcmd)
         self.entry.pack(pady=5)
-        self.entry.insert(0, "1")
+        default_repetitions = self.config.get(
+            'settings', 'repetitions', fallback="1")
+        self.entry.insert(0, default_repetitions)
+
+        # Discord Webhook URL 設定ボタン
+        self.webhook_button = tk.Button(
+            self, text="Discord Web hook の設定", command=self.set_discord_webhook)
+        self.webhook_button.pack(pady=10)
 
     def read_config(self, filename):
         """
@@ -92,8 +97,11 @@ class MainWindow(tk.Tk):
         Returns:
             None
         """
-        with open(filename, 'r', encoding='utf-8') as file:
-            self.config.read_file(file)
+        if os.path.exists(filename):
+            with open(filename, 'r', encoding='utf-8') as file:
+                self.config.read_file(file)
+        self.DISCORD_WEBHOOK_URL = self.config.get(
+            'settings', 'DISCORD_WEBHOOK_URL', fallback="")
 
     def validate(self, value_if_allowed):
         """
@@ -104,10 +112,10 @@ class MainWindow(tk.Tk):
         Returns:
             bool: 入力が有効ならTrue、無効ならFalse。
         """
-        if value_if_allowed.isdigit() and 1 <= int(value_if_allowed) <= 100000:
+        if value_if_allowed.isdigit() and 0 <= int(value_if_allowed) <= 100000:
             return True
         self.entry.delete(0, tk.END)
-        self.entry.insert(0, "1")
+        self.entry.insert(0, "0")
         return False
 
     def on_button_click(self):
@@ -119,7 +127,7 @@ class MainWindow(tk.Tk):
         Returns:
             None
         """
-        self.label.config(text="錬成開始！")
+        self.send_discord_message("錬成開始！")
         repetitions = int(self.entry.get())
 
         temp_dir = "temp"
@@ -137,10 +145,6 @@ class MainWindow(tk.Tk):
         dropdown_selection = self.dropdown.get()
 
         for i in range(repetitions):
-            # 繰り返し回数の表示
-            self.label.config(text=f"錬成中: {i + 1} / {repetitions}")
-            self.update_idletasks()  # ラベルの更新を即座に反映
-
             if dropdown_selection == "おまかせ選択(自動選択)":
                 consume_prime()
             elif dropdown_selection == "真・尖のみ使用":
@@ -167,10 +171,9 @@ class MainWindow(tk.Tk):
                 self.send_to_discord(result_path)
             else:
                 os.remove(os.path.join(temp_dir, file_name))
-            time.sleep(0.5)
             skip()
 
-        self.label.config(text="錬成終了！")
+        self.send_discord_message("錬成終了！")
 
     def save_screenshot(self, index):
         """
@@ -217,6 +220,46 @@ class MainWindow(tk.Tk):
                 print(
                     f"Failed to send image to Discord: {response.status_code}")
 
+    def send_discord_message(self, message):
+        """
+        Discordにメッセージを送信するメソッド
+
+        Args:
+            message (str): 送信するメッセージ
+        Returns:
+            None
+        """
+        response = requests.post(
+            self.DISCORD_WEBHOOK_URL,
+            json={'content': message},
+            headers={'Content-Type': 'application/json'},
+            timeout=30  # タイムアウトを30秒に設定
+        )
+        if response.status_code == 204:
+            print("Message sent to Discord successfully")
+        else:
+            print(f"Failed to send message to Discord: {response.status_code}")
+
+    def set_discord_webhook(self):
+        """
+        Discord Webhook URLを設定するためのダイアログを表示するメソッド
+
+        Args:
+            None
+        Returns:
+            None
+        """
+        new_url = simpledialog.askstring(
+            "Discord Webhook の設定",
+            "Discord Webhook URLを入力してください:",
+            initialvalue=self.DISCORD_WEBHOOK_URL
+        )
+        if new_url:
+            self.DISCORD_WEBHOOK_URL = new_url
+            self.config.set('settings', 'DISCORD_WEBHOOK_URL', new_url)
+            with open(self.CONFIG_FILE, 'w', encoding='utf-8') as configfile:
+                self.config.write(configfile)
+
     def on_closing(self):
         """
         ウィンドウが閉じられるときに実行されるメソッド。選択状態を保存する
@@ -226,7 +269,11 @@ class MainWindow(tk.Tk):
         Returns:
             None
         """
-        self.config['settings'] = {'selection': self.dropdown.get()}
+        self.config['settings'] = {
+            'selection': self.dropdown.get(),
+            'repetitions': self.entry.get(),
+            'DISCORD_WEBHOOK_URL': self.DISCORD_WEBHOOK_URL
+        }
         with open(self.CONFIG_FILE, 'w', encoding='utf-8') as configfile:
             self.config.write(configfile)
         self.destroy()
