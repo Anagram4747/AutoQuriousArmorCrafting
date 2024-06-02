@@ -54,7 +54,7 @@ def load_skills_json():
         data = json.load(f)
 
     skill_dict = {
-        skill.get('skillNameJp'): {
+        skill.get('skillNameEn'): {
             'cost': int(skill.get('cost')),
             'isUniqueSkill': bool(skill.get('isUniqueSkill'))
         }
