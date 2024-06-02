@@ -43,7 +43,7 @@ class MainWindow(tk.Tk):
         self.geometry("400x300")
 
         self.config = configparser.ConfigParser()
-        self.DISCORD_WEBHOOK_URL = ""
+        self.DISCORD_WEBHOOK_URL = ""   # pylint: disable=invalid-name
         self.read_config(self.CONFIG_FILE)
 
         self.create_widgets()
@@ -250,7 +250,10 @@ class MainWindow(tk.Tk):
             None
         """
         new_url = simpledialog.askstring(
-            "Discord Webhook の設定", "Discord Webhook URLを入力してください:", initialvalue=self.DISCORD_WEBHOOK_URL)
+            "Discord Webhook の設定",
+            "Discord Webhook URLを入力してください:",
+            initialvalue=self.DISCORD_WEBHOOK_URL
+        )
         if new_url:
             self.DISCORD_WEBHOOK_URL = new_url
             self.config.set('settings', 'DISCORD_WEBHOOK_URL', new_url)
