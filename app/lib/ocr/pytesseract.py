@@ -19,7 +19,7 @@ from PIL import Image
 
 def extract_text_from_image(image_path):
     """
-    指定された画像ファイルからpytesseractを使用してテキストを抽出します。
+    指定された画像ファイルからpytesseractを使用してテキストを抽出します。言語は英語に設定されています。
 
     Args:
         image_path (str): 画像ファイルへのパス。
@@ -27,5 +27,5 @@ def extract_text_from_image(image_path):
     Returns:
         str: 抽出されたテキスト。
     """
-    text = pytesseract.image_to_string(Image.open(image_path))
+    text = pytesseract.image_to_string(Image.open(image_path), lang='eng')
     return text
