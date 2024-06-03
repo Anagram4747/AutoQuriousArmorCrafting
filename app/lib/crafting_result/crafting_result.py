@@ -6,8 +6,8 @@ import os
 import sys
 import json
 from PIL import Image
-from app.lib.vision.vision_api import extract_text_from_image
-from app.lib.opencv.cv2 import compare_images
+from app.lib.ocr.pytesseract import extract_text_from_image
+from app.lib.ssim.skimage import compare_images
 
 # スロットに対する領域
 SLOT_TARGET_REGION = (1005, 270, 135, 42)
@@ -76,7 +76,6 @@ def get_slots_count(index):
     Returns:
         int: 最も類似度が高いスロットの番号
     """
-    # 最初に保存したスクリーンショットのトリミング
     screenshot_path = os.path.join("temp", f"result_{index}.png")
     if not os.path.exists(screenshot_path):
         raise FileNotFoundError(f"File not found: {screenshot_path}")
