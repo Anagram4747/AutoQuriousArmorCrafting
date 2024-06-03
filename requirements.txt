@@ -4,6 +4,6 @@ pydirectinput
 pyautogui
 numpy
 pytk
-opencv-python
+scikit-image
 pytesseract
 pyinstaller==5.13.2

@@ -12,7 +12,18 @@ a = Analysis(
         ('app/resources/slots/*.png', 'app/resources/slots'),
         ('app/resources/skills.json', 'app/resources')
     ],
-    hiddenimports=[],
+    hiddenimports=[
+        'scipy.special._ufuncs',
+        'scipy.special._ufuncs_cxx',
+        'scipy.special._ellip_harm_2',
+        'scipy.special._ellip_harm',
+        'scipy.special._comb',
+        'scipy.special._ufuncs_cxx',
+        'scipy.special._logit',
+        'scipy.special._sph_harm',
+        'scipy.special._cdflib',
+        'scipy.special._xlogy'
+    ],
     hookspath=[],
     hooksconfig={},
     runtime_hooks=[],

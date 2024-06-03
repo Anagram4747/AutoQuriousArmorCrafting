@@ -8,7 +8,7 @@ import configparser
 import time
 import shutil
 import os
-import requests
+import requests  # pylint: disable=import-error
 import pyautogui
 import pydirectinput
 from app.lib.crafting_result.crafting_result import get_crafting_result
@@ -24,7 +24,7 @@ class MainWindow(tk.Tk):
         label (tk.Label): ボタンを押すと表示されるテキストラベル
         dropdown (ttk.Combobox): ドロップダウンメニュー
         entry (tk.Entry): 繰り返し回数を入力するエントリ
-        DISCORD_WEBHOOK_URL (str): Discord Webhook URL
+        discord_webhook_url (str): Discord Webhook URL
     """
 
     CONFIG_FILE = "config.ini"
@@ -43,7 +43,7 @@ class MainWindow(tk.Tk):
         self.geometry("400x300")
 
         self.config = configparser.ConfigParser()
-        self.DISCORD_WEBHOOK_URL = ""   # pylint: disable=invalid-name
+        self.discord_webhook_url = ""
         self.read_config(self.CONFIG_FILE)
 
         self.create_widgets()
@@ -100,7 +100,7 @@ class MainWindow(tk.Tk):
         if os.path.exists(filename):
             with open(filename, 'r', encoding='utf-8') as file:
                 self.config.read_file(file)
-        self.DISCORD_WEBHOOK_URL = self.config.get(
+        self.discord_webhook_url = self.config.get(
             'settings', 'DISCORD_WEBHOOK_URL', fallback="")
 
     def validate(self, value_if_allowed):
@@ -210,7 +210,7 @@ class MainWindow(tk.Tk):
         """
         with open(file_path, 'rb') as f:
             response = requests.post(
-                self.DISCORD_WEBHOOK_URL,
+                self.discord_webhook_url,
                 files={'file': f},
                 timeout=30  # タイムアウトを30秒に設定
             )
@@ -230,7 +230,7 @@ class MainWindow(tk.Tk):
             None
         """
         response = requests.post(
-            self.DISCORD_WEBHOOK_URL,
+            self.discord_webhook_url,
             json={'content': message},
             headers={'Content-Type': 'application/json'},
             timeout=30  # タイムアウトを30秒に設定
@@ -252,10 +252,10 @@ class MainWindow(tk.Tk):
         new_url = simpledialog.askstring(
             "Discord Webhook の設定",
             "Discord Webhook URLを入力してください:",
-            initialvalue=self.DISCORD_WEBHOOK_URL
+            initialvalue=self.discord_webhook_url
         )
         if new_url:
-            self.DISCORD_WEBHOOK_URL = new_url
+            self.discord_webhook_url = new_url
             self.config.set('settings', 'DISCORD_WEBHOOK_URL', new_url)
             with open(self.CONFIG_FILE, 'w', encoding='utf-8') as configfile:
                 self.config.write(configfile)
@@ -272,7 +272,7 @@ class MainWindow(tk.Tk):
         self.config['settings'] = {
             'selection': self.dropdown.get(),
             'repetitions': self.entry.get(),
-            'DISCORD_WEBHOOK_URL': self.DISCORD_WEBHOOK_URL
+            'DISCORD_WEBHOOK_URL': self.discord_webhook_url
         }
         with open(self.CONFIG_FILE, 'w', encoding='utf-8') as configfile:
             self.config.write(configfile)
