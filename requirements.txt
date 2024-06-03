@@ -6,4 +6,5 @@ numpy
 pytk
 scikit-image
 pytesseract
+opencv-python
 pyinstaller==5.13.2

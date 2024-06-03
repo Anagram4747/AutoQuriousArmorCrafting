@@ -169,8 +169,8 @@ class MainWindow(tk.Tk):
                 result_path = os.path.join(result_dir, file_name)
                 shutil.copy(os.path.join(temp_dir, file_name), result_path)
                 self.send_to_discord(result_path)
-            else:
-                os.remove(os.path.join(temp_dir, file_name))
+            # else:
+                # os.remove(os.path.join(temp_dir, file_name))
             skip()
 
         self.send_discord_message("錬成終了！")

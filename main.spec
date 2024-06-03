@@ -22,7 +22,12 @@ a = Analysis(
         'scipy.special._logit',
         'scipy.special._sph_harm',
         'scipy.special._cdflib',
-        'scipy.special._xlogy'
+        'scipy.special._xlogy',
+        'pytesseract',
+        'pyautogui',
+        'PIL',
+        'scikit-image',
+        'numpy'
     ],
     hookspath=[],
     hooksconfig={},
