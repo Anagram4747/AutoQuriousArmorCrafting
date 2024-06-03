@@ -5,12 +5,15 @@
 import os
 import sys
 import json
+import pyautogui  # pylint: disable=unused-import
 from PIL import Image
 from app.lib.ocr.pytesseract import extract_text_from_image
 from app.lib.ssim.skimage import compare_images
 
 # スロットに対する領域
 SLOT_TARGET_REGION = (1005, 270, 135, 42)
+
+Y_OFFSET = 38
 
 # スキル名のトリミング範囲
 SKILL_NAME_REGIONS = [
@@ -25,6 +28,9 @@ SKILL_VALUE_REGIONS = [
     (1006, 662, 160, 36),   # スキル2の上昇値
     (1006, 738, 160, 36)    # スキル3の上昇値
 ]
+
+# スキル変動のチェック領域
+SKILL_FLUCTUATION_REGION = (802, 274, 125, 32)
 
 
 def get_resource_path(relative_path):
@@ -67,12 +73,38 @@ def load_skills_json():
 SKILL_DICT = load_skills_json()
 
 
-def get_slots_count(index):
+def is_skill_fluctuation_orver_limit(screenshot_path):
+    """
+    傀異錬成の結果が4スキル以上あるかどうかを判定
+
+    Args:
+        screenshot_path (str): スクリーンショットのファイルパス
+
+    Returns
+        bool: 文字認識の結果が "Slots" の場合はTrue、それ以外はFalse。
+    """
+    if not os.path.exists(screenshot_path):
+        raise FileNotFoundError(f"File not found: {screenshot_path}")
+
+    screenshot = Image.open(screenshot_path)
+    x, y, width, height = SKILL_FLUCTUATION_REGION
+    target_image = screenshot.crop((x, y, x + width, y + height))
+    skill_fluctuation_check_image_path = os.path.join(
+        "temp", "skill_fluctuation_check.png")
+    target_image.save(skill_fluctuation_check_image_path)
+
+    recognized_text = extract_text_from_image(
+        skill_fluctuation_check_image_path).strip()
+    return recognized_text == "Defense"
+
+
+def get_slots_count(index, is_offset):
     """
     画像を比較し、最も類似度が高い画像のスロット数を返すメソッド
 
     Args:
         index (int): スクリーンショットのインデックス
+        is_offset (bool): 座標ずれがあるかどうか
     Returns:
         int: 最も類似度が高いスロットの番号
     """
@@ -82,6 +114,8 @@ def get_slots_count(index):
 
     screenshot = Image.open(screenshot_path)
     x, y, width, height = SLOT_TARGET_REGION
+    if is_offset:
+        y += Y_OFFSET
     target_image = screenshot.crop((x, y, x + width, y + height))
     target_image_path = os.path.join("temp", f"slots_{index}.png")
     target_image.save(target_image_path)
@@ -98,12 +132,14 @@ def get_slots_count(index):
     return best_slot
 
 
-def get_skills(screenshot_path):
+def get_skills(screenshot_path, index, is_offset):
     """
     スクリーンショットからスキル名と上昇値を取得するメソッド
 
     Args:
         screenshot_path (str): スクリーンショットのファイルパス
+        index (int): 呼び出し元の繰り返し回数
+        is_offset (bool): 座標ずれがあるかどうか
     Returns:
         list: スキル名と上昇値のリスト
     """
@@ -116,14 +152,18 @@ def get_skills(screenshot_path):
     for idx, (name_region, value_region) in enumerate(zip(SKILL_NAME_REGIONS, SKILL_VALUE_REGIONS)):
         name_x, name_y, name_width, name_height = name_region
         value_x, value_y, value_width, value_height = value_region
+        if is_offset:
+            name_y += Y_OFFSET
+            value_y += Y_OFFSET
 
         name_image = screenshot.crop(
             (name_x, name_y, name_x + name_width, name_y + name_height))
         value_image = screenshot.crop(
             (value_x, value_y, value_x + value_width, value_y + value_height))
 
-        name_image_path = os.path.join("temp", f"skill_name_{idx}.png")
-        value_image_path = os.path.join("temp", f"skill_value_{idx}.png")
+        name_image_path = os.path.join("temp", f"skill_name_{idx}_{index}.png")
+        value_image_path = os.path.join(
+            "temp", f"skill_value_{idx}_{index}.png")
 
         name_image.save(name_image_path)
         value_image.save(value_image_path)
@@ -151,18 +191,20 @@ def get_skills(screenshot_path):
     return skills
 
 
-def get_crafting_result(file_name, index):
+def get_crafting_result(screenshot_path, index):
     """
     傀異錬成の結果を取得するメソッド
 
     Args:
-        file_name (str): OCRを行うファイル名
+        screenshot_path (str): 傀異錬成の結果の画像ファイルのパス
         index (int): 画像比較を行うインデックス
     Returns:
         bool: 成功時にはTrueを返す
     """
-    slot_count = get_slots_count(index)
-    skills = get_skills(os.path.join("temp", file_name))
+    is_offset = is_skill_fluctuation_orver_limit(screenshot_path)
+
+    slot_count = get_slots_count(index, is_offset)
+    skills = get_skills(screenshot_path, index, is_offset)
 
     # コスト計算
     cost = slot_count * 6
@@ -179,30 +221,25 @@ def get_crafting_result(file_name, index):
             unique_skill_count += 1
 
     # 戻り値の条件分岐
+    result = False
     if total_negative_skill_value == 0:
         if cost >= 21:
-            return True
+            result = True
         elif cost >= 18 and unique_skill_count >= 1:
-            return True
-        else:
-            return False
+            result = True
     elif total_negative_skill_value == -1:
         if unique_skill_count >= 2:
-            return True
+            result = True
         elif unique_skill_count >= 1 and cost >= 21:
-            return True
+            result = True
         elif unique_skill_count == 0 and cost >= 24:
-            return True
-        else:
-            return False
+            result = True
     elif total_negative_skill_value < -2:
         if unique_skill_count >= 2:
-            return True
+            result = True
         elif unique_skill_count >= 1 and cost >= 24:
-            return True
+            result = True
         elif unique_skill_count == 0 and cost >= 27:
-            return True
-        else:
-            return False
-    else:
-        return False
+            result = True
+
+    return result
