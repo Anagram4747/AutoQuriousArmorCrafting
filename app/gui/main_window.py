@@ -8,11 +8,11 @@ import configparser
 import time
 import shutil
 import os
-import requests  # pylint: disable=import-error
 import pyautogui
 import pydirectinput
 from app.lib.crafting_result.crafting_result import get_crafting_result
 from app.lib.macro.macro import consume_prime, consume_royal, consume_pure, skip
+from app.lib.service.discord.discord import send_to_discord, send_discord_message
 
 
 class MainWindow(tk.Tk):
@@ -127,17 +127,17 @@ class MainWindow(tk.Tk):
         Returns:
             None
         """
-        self.send_discord_message("錬成開始！")
         repetitions = int(self.entry.get())
+        send_discord_message(self.discord_webhook_url, f"{repetitions}連開始します")
 
         temp_dir = "temp"
         result_dir = "result"
         if os.path.exists(temp_dir):
             shutil.rmtree(temp_dir)
         os.makedirs(temp_dir)
-
-        if not os.path.exists(result_dir):
-            os.makedirs(result_dir)
+        if os.path.exists(result_dir):
+            shutil.rmtree(result_dir)
+        os.makedirs(result_dir)
 
         # ウィンドウを切り替え
         pydirectinput.click(1, 1)
@@ -162,30 +162,43 @@ class MainWindow(tk.Tk):
                     consume_prime()
 
             time.sleep(1.65)
-            file_name = self.save_screenshot(i + 1)
-            success = get_crafting_result(file_name, i + 1)
+            file_name = self.save_screenshot(temp_dir, i + 1)
+
+            success = get_crafting_result(
+                os.path.join(temp_dir, file_name), i + 1)
             if success:
                 print("Crafting result obtained successfully")
-                result_path = os.path.join(result_dir, file_name)
-                shutil.copy(os.path.join(temp_dir, file_name), result_path)
-                self.send_to_discord(result_path)
-            # else:
-                # os.remove(os.path.join(temp_dir, file_name))
+                shutil.copy(
+                    os.path.join(temp_dir, file_name),
+                    os.path.join(result_dir, file_name)
+                )
+                send_to_discord(
+                    self.discord_webhook_url,
+                    os.path.join(result_dir, file_name),
+                    f"{i}連後"
+                )
+
             skip()
+            os.remove(os.path.join(temp_dir, file_name))
 
-        self.send_discord_message("錬成終了！")
+            # 100回ごとに残りの回数を通知
+            if (repetitions - i - 1) % 100 == 0 and repetitions - i - 1 != 0:
+                send_discord_message(
+                    self.discord_webhook_url, f"残り{repetitions - i - 1}連")
 
-    def save_screenshot(self, index):
+        send_discord_message(self.discord_webhook_url, "錬成終了！")
+
+    def save_screenshot(self, output_dir, index):
         """
-        スクリーンショットを取得し、temp/result_<index>.pngとして保存するメソッド
+        スクリーンショットを取得し、指定されたディレクトリにresult_<index>.pngとして保存するメソッド
         既にファイルが存在する場合は削除します
 
         Args:
+            output_dir (str): スクリーンショットを保存するディレクトリ。
             index (int): スクリーンショットのインデックス。
         Returns:
             str: 保存したファイル名
         """
-        output_dir = "temp"
         output_file_name = f"result_{index}.png"
         if not os.path.exists(output_dir):
             os.makedirs(output_dir)
@@ -198,47 +211,6 @@ class MainWindow(tk.Tk):
         screenshot.save(screenshot_path)
 
         return output_file_name
-
-    def send_to_discord(self, file_path):
-        """
-        画像をDiscordに送信するメソッド
-
-        Args:
-            file_path (str): 送信する画像ファイルのパス。
-        Returns:
-            None
-        """
-        with open(file_path, 'rb') as f:
-            response = requests.post(
-                self.discord_webhook_url,
-                files={'file': f},
-                timeout=30  # タイムアウトを30秒に設定
-            )
-            if response.status_code == 204:
-                print("Image sent to Discord successfully")
-            else:
-                print(
-                    f"Failed to send image to Discord: {response.status_code}")
-
-    def send_discord_message(self, message):
-        """
-        Discordにメッセージを送信するメソッド
-
-        Args:
-            message (str): 送信するメッセージ
-        Returns:
-            None
-        """
-        response = requests.post(
-            self.discord_webhook_url,
-            json={'content': message},
-            headers={'Content-Type': 'application/json'},
-            timeout=30  # タイムアウトを30秒に設定
-        )
-        if response.status_code == 204:
-            print("Message sent to Discord successfully")
-        else:
-            print(f"Failed to send message to Discord: {response.status_code}")
 
     def set_discord_webhook(self):
         """
