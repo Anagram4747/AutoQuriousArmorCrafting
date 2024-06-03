@@ -5,7 +5,7 @@
 仮想環境の作成コマンド
 
 ```shell
-py -m venv myenv
+python3 -m venv myenv
 ```
 
 パッケージのインストール  
