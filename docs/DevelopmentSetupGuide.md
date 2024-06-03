@@ -10,7 +10,8 @@ py -m venv myenv
 
 パッケージのインストール  
 pyautoguiは、ないとpydirectinputの座標がおかしくなるらしい  
-参考：[pythonで、ゲームを自動化する「pydirectinput」](https://namake2.hatenablog.com/entry/2023/12/28/055412)
+参考：[pythonで、ゲームを自動化する「pydirectinput」](https://namake2.hatenablog.com/entry/2023/12/28/055412)  
+opencvも使っていないが、座標ずれが発生するようになったため追加している(直接原因かは不明)
 
 ```shell
 pip install -r requirements.txt
