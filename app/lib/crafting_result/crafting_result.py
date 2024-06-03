@@ -13,6 +13,7 @@ from app.lib.ssim.skimage import compare_images
 # スロットに対する領域
 SLOT_TARGET_REGION = (1005, 270, 135, 42)
 
+# y座標のずらし幅, 微妙にずれもあるけど、妥協できるライン
 Y_OFFSET = 38
 
 # スキル名のトリミング範囲
