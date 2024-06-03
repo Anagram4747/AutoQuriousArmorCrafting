@@ -6,7 +6,7 @@ import os
 import sys
 import json
 from PIL import Image
-from app.lib.vision.vision_api import extract_text_from_image
+from app.lib.ocr.pytesseract import extract_text_from_image
 from app.lib.opencv.cv2 import compare_images
 
 # スロットに対する領域

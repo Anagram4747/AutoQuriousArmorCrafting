@@ -2,7 +2,7 @@ configparser
 pydirectinput
 pyautogui
 numpy
-google-cloud-vision
 pytk
 opencv-python
+pytesseract
 pyinstaller==5.13.2
