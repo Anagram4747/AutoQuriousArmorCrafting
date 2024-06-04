@@ -6,7 +6,7 @@ block_cipher = None
 
 a = Analysis(
     ['app\\main.py'],
-    pathex=[],
+    pathex=['.'],
     binaries=[],
     datas=[
         ('app/resources/slots/*.png', 'app/resources/slots'),
