@@ -95,7 +95,10 @@ def is_skill_fluctuation_orver_limit(screenshot_path):
     target_image.save(skill_fluctuation_check_image_path)
 
     recognized_text = extract_text_from_image(
-        skill_fluctuation_check_image_path).strip()
+        skill_fluctuation_check_image_path)
+
+    os.remove(skill_fluctuation_check_image_path)
+
     return recognized_text == "Defense"
 
 
@@ -129,6 +132,8 @@ def get_slots_count(index, is_offset):
         if similarity > best_similarity:
             best_similarity = similarity
             best_slot = slot_plus
+
+    os.remove(target_image_path)
 
     return best_slot
 
@@ -171,6 +176,9 @@ def get_skills(screenshot_path, index, is_offset):
 
         name_text = extract_text_from_image(name_image_path)
         value_text = extract_text_from_image(value_image_path)
+
+        os.remove(name_image_path)
+        os.remove(value_image_path)
 
         if name_text.strip() and value_text.strip():  # 両方が空白でないことを確認
             # value_textの内容を変換
