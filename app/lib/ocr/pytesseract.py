@@ -28,5 +28,5 @@ def extract_text_from_image(image_path):
         str: 抽出されたテキスト。
     """
     text = pytesseract.image_to_string(Image.open(image_path), lang='eng')
-    # 両端の空白文字(改行文字を含む)を除去して返却
-    return text.strip()
+    # 末尾の改行文字を除去して返却
+    return text.rstrip('\n')
