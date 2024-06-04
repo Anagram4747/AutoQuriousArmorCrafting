@@ -2,9 +2,13 @@
 このモジュールは、傀異錬成の結果を判定する処理を提供します
 """
 
+# なぜかlint警告が出ていたので、ファイル全体で無視してる
+# pylint: disable=no-member
+
 import os
 import sys
 import json
+import cv2
 import pyautogui  # pylint: disable=unused-import
 from PIL import Image
 from app.lib.ocr.pytesseract import extract_text_from_image
@@ -61,7 +65,7 @@ def load_skills_json():
         data = json.load(f)
 
     skill_dict = {
-        skill.get('skillNameEn'): {
+        skill.get('skillNameEn').replace(" ", ""): {
             'cost': int(skill.get('cost')),
             'isUniqueSkill': bool(skill.get('isUniqueSkill'))
         }
@@ -72,6 +76,15 @@ def load_skills_json():
 
 # スキル情報を読み込んで定数として保持
 SKILL_DICT = load_skills_json()
+
+
+def remove_noise(image):
+    """ 画像のノイズを除去する関数 """
+    gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+    _, binary = cv2.threshold(
+        gray, 128, 255, cv2.THRESH_BINARY | cv2.THRESH_OTSU)
+    denoised = cv2.fastNlMeansDenoising(binary, None, 30, 7, 21)
+    return denoised
 
 
 def is_skill_fluctuation_orver_limit(screenshot_path):
@@ -93,6 +106,11 @@ def is_skill_fluctuation_orver_limit(screenshot_path):
     skill_fluctuation_check_image_path = os.path.join(
         "temp", "skill_fluctuation_check.png")
     target_image.save(skill_fluctuation_check_image_path)
+
+    # ノイズ除去
+    image = cv2.imread(skill_fluctuation_check_image_path)
+    denoised_image = remove_noise(image)
+    cv2.imwrite(skill_fluctuation_check_image_path, denoised_image)
 
     recognized_text = extract_text_from_image(
         skill_fluctuation_check_image_path)
@@ -174,6 +192,15 @@ def get_skills(screenshot_path, index, is_offset):
         name_image.save(name_image_path)
         value_image.save(value_image_path)
 
+        # ノイズ除去
+        name_image_cv = cv2.imread(name_image_path)
+        denoised_name_image = remove_noise(name_image_cv)
+        cv2.imwrite(name_image_path, denoised_name_image)
+
+        value_image_cv = cv2.imread(value_image_path)
+        denoised_value_image = remove_noise(value_image_cv)
+        cv2.imwrite(value_image_path, denoised_value_image)
+
         name_text = extract_text_from_image(name_image_path)
         value_text = extract_text_from_image(value_image_path)
 
@@ -182,6 +209,7 @@ def get_skills(screenshot_path, index, is_offset):
 
         if name_text.strip() and value_text.strip():  # 両方が空白でないことを確認
             # value_textの内容を変換
+            name_text = name_text.replace(" ", "")
             value_text = value_text.replace(" ", "")
             if value_text == "なし":
                 value = -2
@@ -199,7 +227,7 @@ def get_skills(screenshot_path, index, is_offset):
 
     # 4スキル以上出た場合、災禍転福が-1されているとして処理する
     if is_offset:
-        skills.append("Coalescence", -1)
+        skills.append(("Coalescence", -1))
 
     return skills
 
