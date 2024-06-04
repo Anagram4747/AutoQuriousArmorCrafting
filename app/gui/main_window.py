@@ -177,7 +177,8 @@ class MainWindow(tk.Tk):
                     os.path.join(temp_dir, file_name),
                     os.path.join(result_dir, file_name)
                 )
-                send_to_discord(
+                executor.submit(
+                    send_to_discord,
                     self.discord_webhook_url,
                     os.path.join(result_dir, file_name),
                     f"{i}連後"
