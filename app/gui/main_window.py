@@ -186,7 +186,6 @@ class MainWindow(tk.Tk):
                 send_discord_message(
                     self.discord_webhook_url, f"残り{repetitions - i - 1}連")
 
-        os.rmdir(temp_dir)
         send_discord_message(self.discord_webhook_url, "錬成終了！")
 
     def save_screenshot(self, output_dir, index):
