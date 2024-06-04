@@ -197,6 +197,10 @@ def get_skills(screenshot_path, index, is_offset):
 
             skills.append((name_text, value))
 
+    # 4スキル以上出た場合、災禍転福が-1されているとして処理する
+    if is_offset:
+        skills.append("Coalescence", -1)
+
     return skills
 
 
