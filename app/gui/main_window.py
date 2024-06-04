@@ -8,6 +8,7 @@ import configparser
 import time
 import shutil
 import os
+from concurrent.futures import ThreadPoolExecutor
 import pyautogui
 import pydirectinput
 from app.lib.crafting_result.crafting_result import get_crafting_result
@@ -127,8 +128,13 @@ class MainWindow(tk.Tk):
         Returns:
             None
         """
+        executor = ThreadPoolExecutor(max_workers=2)
         repetitions = int(self.entry.get())
-        send_discord_message(self.discord_webhook_url, f"{repetitions}連開始します")
+        executor.submit(
+            send_discord_message,
+            self.discord_webhook_url,
+            f"{repetitions}連開始します"
+        )
 
         temp_dir = "temp"
         result_dir = "result"
@@ -167,7 +173,6 @@ class MainWindow(tk.Tk):
             success = get_crafting_result(
                 os.path.join(temp_dir, file_name), i + 1)
             if success:
-                print("Crafting result obtained successfully")
                 shutil.copy(
                     os.path.join(temp_dir, file_name),
                     os.path.join(result_dir, file_name)
@@ -183,10 +188,14 @@ class MainWindow(tk.Tk):
 
             # 100回ごとに残りの回数を通知
             if (repetitions - i - 1) % 100 == 0 and repetitions - i - 1 != 0:
-                send_discord_message(
-                    self.discord_webhook_url, f"残り{repetitions - i - 1}連")
+                executor.submit(
+                    send_discord_message,
+                    self.discord_webhook_url,
+                    f"残り{repetitions - i - 1}連"
+                )
 
-        os.rmdir(temp_dir)
+        # os.rmdir(temp_dir)
+        executor.shutdown()
         send_discord_message(self.discord_webhook_url, "錬成終了！")
 
     def save_screenshot(self, output_dir, index):
