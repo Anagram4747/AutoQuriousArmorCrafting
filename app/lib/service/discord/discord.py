@@ -39,5 +39,5 @@ def send_discord_message(discord_webhook_url, message="send_discord_message"):
         discord_webhook_url,
         json={'content': message},
         headers={'Content-Type': 'application/json'},
-        timeout=10  # タイムアウトを10秒に設定
+        timeout=30  # タイムアウトを10秒に設定
     )
