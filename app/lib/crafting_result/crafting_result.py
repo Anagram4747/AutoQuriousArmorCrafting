@@ -211,7 +211,7 @@ def get_skills(screenshot_path, index, is_offset):
             # value_textの内容を変換
             name_text = name_text.replace(" ", "")
             value_text = value_text.replace(" ", "")
-            if value_text == "なし":
+            if value_text == "None":
                 value = -2
             elif value_text == "Lv-1":
                 value = -1
@@ -219,9 +219,9 @@ def get_skills(screenshot_path, index, is_offset):
                 try:
                     value = int(value_text[3:])
                 except ValueError:
-                    value = 0  # 変換できない場合のデフォルト値
+                    value = 100  # 変換できない場合のデフォルト値
             else:
-                value = 0  # 変換できない場合のデフォルト値
+                value = 100  # 変換できない場合のデフォルト値
 
             skills.append((name_text, value))
 
@@ -254,7 +254,8 @@ def get_crafting_result(screenshot_path, index):
 
     for skill_name, skill_value in skills:
         if skill_value > 0:
-            cost += SKILL_DICT.get(skill_name, {}).get('cost', 0) * skill_value
+            cost += SKILL_DICT.get(skill_name, {}
+                                   ).get('cost', 100) * skill_value
         elif skill_value < 0:
             total_negative_skill_value += skill_value
 
@@ -275,7 +276,7 @@ def get_crafting_result(screenshot_path, index):
             result = True
         elif unique_skill_count == 0 and cost >= 24:
             result = True
-    elif total_negative_skill_value < -2:
+    elif total_negative_skill_value <= -2:
         if unique_skill_count >= 2:
             result = True
         elif unique_skill_count >= 1 and cost >= 24:
