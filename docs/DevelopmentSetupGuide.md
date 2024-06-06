@@ -5,13 +5,18 @@
 仮想環境の作成コマンド
 
 ```shell
-python3 -m venv myenv
+py -m venv myenv
+```
+
+仮想環境の起動
+
+```shell
+myenv\Scripts\activate
 ```
 
 パッケージのインストール  
 pyautoguiは、ないとpydirectinputの座標がおかしくなるらしい  
 参考：[pythonで、ゲームを自動化する「pydirectinput」](https://namake2.hatenablog.com/entry/2023/12/28/055412)  
-opencvも使っていないが、座標ずれが発生するようになったため追加している(直接原因かは不明)
 
 ```shell
 pip install -r requirements.txt
