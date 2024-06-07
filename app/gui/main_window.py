@@ -185,6 +185,7 @@ class MainWindow(tk.Tk):
                 )
 
             skip()
+            os.remove(os.path.join(temp_dir, file_name))
 
             # 100回ごとに残りの回数を通知
             if (repetitions - i - 1) % 100 == 0 and repetitions - i - 1 != 0:
