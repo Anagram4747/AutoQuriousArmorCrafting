@@ -817,7 +817,7 @@
         "skillNameEn": "Buildup Boost",
         "cost": 12,
         "slot": null,
-        "isUniqueSkill": false
+        "isUniqueSkill": true
       },
       {
         "skillNameJp": "風纏",
