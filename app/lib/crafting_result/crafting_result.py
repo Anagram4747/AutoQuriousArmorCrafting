@@ -71,6 +71,9 @@ def load_skills_json():
         }
         for skill in data['skills']
     }
+    # 狂竜症【蝕】、龍気活性は固有スキル扱い
+    skill_dict["Bloodlust"]["isUniqueSkill"] = True
+    skill_dict["Dragonheart"]["isUniqueSkill"] = True
     return skill_dict
 
 
